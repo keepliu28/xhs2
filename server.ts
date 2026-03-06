@@ -194,32 +194,7 @@ async function startServer() {
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
-      server: { 
-        middlewareMode: true,
-        watch: {
-          // Aggressively ignore everything except source code to prevent auto-reloads
-          // when output files are generated in the project directory
-          ignored: (path: string) => {
-             // Always ignore node_modules and .git
-             if (path.includes('node_modules') || path.includes('.git')) return true;
-             
-             // Allow (do not ignore) source files and config
-             if (path.includes('/src/') || path.includes('\\src\\') || 
-                 path.includes('/public/') || path.includes('\\public\\') ||
-                 path.endsWith('index.html') || 
-                 path.endsWith('vite.config.ts') || 
-                 path.endsWith('server.ts') ||
-                 path.endsWith('tailwind.config.js') ||
-                 path.endsWith('postcss.config.js') ||
-                 path.endsWith('tsconfig.json')) {
-               return false;
-             }
-             
-             // Ignore everything else (output folders, data files, temp files, etc.)
-             return true;
-          }
-        }
-      },
+      server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
