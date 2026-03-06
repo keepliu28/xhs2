@@ -15,11 +15,13 @@ export default defineConfig(({mode}) => {
         '@': path.resolve(process.cwd(), './src'),
       },
     },
-    root: process.cwd(),
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
+    },
+    optimizeDeps: {
+      include: ['react-markdown', 'lucide-react', 'jszip', 'html-to-image', 'clsx', 'tailwind-merge', 'motion'],
     },
   };
 });
